@@ -6,14 +6,15 @@ let felicidad = 5;
 
 function vista() {
     let estaMuerto = (hambre >= 10 || felicidad <= 0);
-    let cara = estaMuerto ? "💀" : "👾";
+    let cara = estaMuerto ? "Angry Dog.json" : "Happy Unicorn Dog.json";
+
     // 1. HTMLa sortzen dugu
     document.getElementById("app").innerHTML = `
         <div class="pet-screen">
             <h1>PIXEL PET</h1>
             
             <div class="pet-face">
-            ${cara}
+                <lottie-player src="${cara}"  background="transparent"  speed="1"  style="width: 200px; height: 200px;" loop autoplay></lottie-player>
             </div>
 
             <div class="stats">
@@ -85,11 +86,14 @@ function pasoDelTiempo() {
         if (hambre > 10) hambre = 10;
         if (felicidad < 0) felicidad = 0;
 
+        estaMuerto = hambre == 10 || felicidad == 0
+
         // 3. Pantaila eguneratzen dugu
         vista();
 
         // 4. Tenporizadoreari berriro deitzen diogu (Begizta infinitua)
-        pasoDelTiempo();
+        if(!estaMuerto)
+            pasoDelTiempo();
 
     }, 2000);
 }
