@@ -1,5 +1,9 @@
 let hambre = 5;
+let comiendo = false;
+let feliz = false;
 let felicidad = 5;
+
+
 function vista() {
     let estaMuerto = (hambre >= 10 || felicidad <= 0);
     let cara = estaMuerto ? "💀" : "👾";
@@ -18,8 +22,8 @@ function vista() {
             </div>
 
             <div class="controls">
-                <button class="boton ${estaMuerto ? "disabled" : ""}" id="btn-comer">Jana eman</button>
-                <button class="boton ${estaMuerto ? "disabled" : ""}" id="btn-jugar">Jolastu</button>
+                <button class="boton ${estaMuerto || comiendo ? "disabled" : ""}" id="btn-comer">${comiendo ? "Jaten...." : "Jana emon"}</button>
+                <button class="boton ${estaMuerto || feliz ? "disabled" : ""}" id="btn-jugar">${feliz ? "Pozik..." : "Jolastu"}</button>
             </div>
         </div>
     `;
@@ -30,16 +34,30 @@ function vista() {
         // Logika: Gosea 0 baino handiagoa bada, 1 kentzen dugu.
         if (hambre > 0) {
             hambre--;
+            comiendo = true;
         }
         vista(); // GARRANTZITSUA: Berriro margotzen dugu
+
+        setTimeout(() => {
+            comiendo = false
+            vista();
+        }, 1000)
+
+        
     }
+
 
     document.getElementById("btn-jugar").onclick = () => {
         // Logika: Zoriontasuna 10 baino txikiagoa bada, 1 gehitzen dugu.
         if (felicidad < 10) {
             felicidad++; // Osatu hau
+            feliz = true;
         }
         vista(); // Bista birkargatzen dugu
+         setTimeout(() => {
+            feliz = false
+            vista();
+        }, 1000)
     }
 
     // HEMEN JOANGO DIRA GERTAERAK (3. FASEA)
